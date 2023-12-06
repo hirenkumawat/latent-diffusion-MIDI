@@ -40,6 +40,8 @@ class DDIMSampler(object):
         self.register_buffer('sqrt_recipm1_alphas_cumprod', to_torch(np.sqrt(1. / alphas_cumprod.cpu() - 1)))
 
         # ddim sampling parameters
+        self.ddim_timesteps = self.ddim_timesteps[:-1]
+        print(self.ddim_timesteps)
         ddim_sigmas, ddim_alphas, ddim_alphas_prev = make_ddim_sampling_parameters(alphacums=alphas_cumprod.cpu(),
                                                                                    ddim_timesteps=self.ddim_timesteps,
                                                                                    eta=ddim_eta,verbose=verbose)

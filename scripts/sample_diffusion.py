@@ -114,6 +114,9 @@ def run(model, logdir, batch_size=50, vanilla=False, custom_steps=None, eta=None
 
     tstart = time.time()
     n_saved = len(glob.glob(os.path.join(logdir,'*.png')))-1
+    logs = make_convolutional_sample(model, batch_size=batch_size,
+                                     vanilla=vanilla, custom_steps=custom_steps,
+                                     eta=eta)
     # path = logdir
     if model.cond_stage_model is None:
         all_images = []

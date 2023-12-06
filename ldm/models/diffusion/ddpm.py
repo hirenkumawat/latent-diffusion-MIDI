@@ -54,7 +54,7 @@ class DDPM(pl.LightningModule):
                  monitor="val/loss",
                  use_ema=True,
                  first_stage_key="image",
-                 image_size=256,
+                 image_size=106,
                  channels=3,
                  log_every_t=100,
                  clip_denoised=True,
@@ -1437,7 +1437,7 @@ class Layout2ImgDiffusion(LatentDiffusion):
         bbox_imgs = []
         map_fn = lambda catno: dset.get_textual_label(dset.get_category_id(catno))
         for tknzd_bbox in batch[self.cond_stage_key][:N]:
-            bboximg = mapper.plot(tknzd_bbox.detach().cpu(), map_fn, (256, 256))
+            bboximg = mapper.plot(tknzd_bbox.detach().cpu(), map_fn, (106, 106))
             bbox_imgs.append(bboximg)
 
         cond_img = torch.stack(bbox_imgs, dim=0)
