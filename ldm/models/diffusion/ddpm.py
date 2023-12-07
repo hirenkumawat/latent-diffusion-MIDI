@@ -1401,6 +1401,7 @@ class DiffusionWrapper(pl.LightningModule):
 
     def forward(self, x, t, c_concat: list = None, c_crossattn: list = None):
         if self.conditioning_key is None:
+            print(x.shape, t.shape)
             out = self.diffusion_model(x, t)
         elif self.conditioning_key == 'concat':
             xc = torch.cat([x] + c_concat, dim=1)

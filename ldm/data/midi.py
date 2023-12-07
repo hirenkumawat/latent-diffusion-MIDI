@@ -9,10 +9,10 @@ def crop106(img):
 
 class lakhDSTrain(torch.utils.data.Dataset):
     def __init__(self):
-        self.main_dir = '/home/hice1/hkumawat3/scratch/midi2img/res2val/'
+        self.main_dir = '/home/hice1/hkumawat3/scratch/midi2img/res3smalltrain/'
         self.transform = transforms.Compose([
-                                #transforms.Lambda(crop106),
-                                transforms.Pad(padding=(0,75,0,75)),
+                               # transforms.Lambda(crop106),
+                                transforms.Pad(padding=(22,22,22,22)),
                                 transforms.ToTensor()])
         self.total_imgs = os.listdir(self.main_dir)
         self.keys = None
@@ -24,8 +24,9 @@ class lakhDSTrain(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         img_loc = os.path.join(self.main_dir, self.total_imgs[idx])
 
-        tensor_image = torch.zeros((256,3,256))
+        #tensor_image = torch.zeros((256,3,256))
         #tensor_image = torch.zeros((106,3,106))
+        tensor_image = torch.zeros((128,3,128))
 
         try:
                 image = Image.open(img_loc).convert("RGB")
@@ -40,11 +41,12 @@ class lakhDSTrain(torch.utils.data.Dataset):
 
 class lakhDSValid(torch.utils.data.Dataset):
     def __init__(self):
-        self.main_dir = '/home/hice1/hkumawat3/scratch/midi2img/res2small/'
+        self.main_dir = '/home/hice1/hkumawat3/scratch/midi2img/res3smallval/'
         #self.transform = transforms.Compose([transforms.Pad(padding=(0,75,0,75)),
         self.transform = transforms.Compose([
                                 #transforms.Lambda(crop106),
-                                transforms.Pad(padding=(0,75,0,75)),
+                                #transforms.Pad(padding=(0,75,0,75)),
+                                transforms.Pad(padding=(22,22,22,22)),
                                 transforms.ToTensor()])
         self.total_imgs = os.listdir(self.main_dir)
         self.keys = None
@@ -55,8 +57,9 @@ class lakhDSValid(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         img_loc = os.path.join(self.main_dir, self.total_imgs[idx])
-        tensor_image = torch.zeros((256,3,256))
+        #tensor_image = torch.zeros((256,3,256))
         #tensor_image = torch.zeros((106,3,106))
+        tensor_image = torch.zeros((128,3,128))
 
         try:
                 image = Image.open(img_loc).convert("RGB")
